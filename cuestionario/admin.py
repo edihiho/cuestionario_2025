@@ -23,4 +23,4 @@ class ExamenAdmin(admin.ModelAdmin):
 @admin.register(Respuesta)
 class RespuestaAdmin(admin.ModelAdmin):
     list_display = ('id', 'examen', 'pregunta', 'opcion', 'es_correcta')
-models here.
+# models here.
