@@ -4,82 +4,95 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Inicio de Sesión</title>
-  <!-- Carga de TailwindCSS desde CDN (versión estable) -->
+  <title>Iniciar Sesión</title>
+  <!-- Tailwind CSS via CDN -->
   <link
     href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.7/dist/tailwind.min.css"
     rel="stylesheet"
   />
 </head>
-<body class="bg-gray-100">
-  <div class="flex items-center justify-center h-screen">
-    <!-- Contenedor principal -->
-    <div class="bg-white w-full max-w-sm p-8 rounded-xl shadow-lg">
-      
-      <!-- Logo centrado -->
-      <div class="flex justify-center mb-6">
-        <!-- Ajusta la ruta al logo que tengas en tu carpeta static -->
-        <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-16 w-auto" />
+<body class="bg-gradient-to-tr from-blue-100 via-blue-200 to-blue-300 min-h-screen flex items-center justify-center">
+  <!-- Contenedor principal centrado -->
+  <div class="bg-white max-w-md w-full p-8 rounded-xl shadow-2xl animate-[fadeIn_0.7s_ease-in-out]">
+    
+    <!-- Logo (ajusta la ruta a tu archivo) -->
+    <div class="flex justify-center mb-6">
+      <img
+        src="{% static 'images/logo.png' %}"
+        alt="Logo"
+        class="h-16 w-auto"
+      />
+    </div>
+
+    <!-- Título -->
+    <h1 class="text-2xl font-bold text-center text-gray-800 mb-8">
+      Bienvenido
+    </h1>
+
+    <!-- Mensajes de Django (por si usas django.contrib.messages) -->
+    {% if messages %}
+      <div class="mb-4">
+        {% for message in messages %}
+          <p class="{% if message.tags == 'error' %}text-red-500{% else %}text-green-600{% endif %} text-sm text-center">
+            {{ message }}
+          </p>
+        {% endfor %}
       </div>
+    {% endif %}
 
-      <!-- Título -->
-      <h1 class="text-2xl font-bold text-center mb-6">
-        Bienvenido
-      </h1>
+    <!-- Formulario de Inicio de Sesión -->
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="correo" class="block text-sm font-semibold text-gray-700 mb-1">Correo</label>
+        <input
+          type="email"
+          name="correo"
+          id="correo"
+          class="block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          placeholder="usuario@example.com"
+          required
+        />
+      </div>
+      <div class="mb-6">
+        <label for="contraseña" class="block text-sm font-semibold text-gray-700 mb-1">Contraseña</label>
+        <input
+          type="password"
+          name="contraseña"
+          id="contraseña"
+          class="block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          placeholder="Tu contraseña"
+          required
+        />
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+      >
+        Iniciar Sesión
+      </button>
+    </form>
 
-      <!-- Mensajes de error/éxito (si usas django.contrib.messages) -->
-      {% if messages %}
-        <div class="mb-4">
-          {% for message in messages %}
-            <p class="{% if message.tags == 'error' %}text-red-500{% else %}text-green-600{% endif %} text-sm">
-              {{ message }}
-            </p>
-          {% endfor %}
-        </div>
-      {% endif %}
-
-      <!-- Formulario de inicio de sesión -->
-      <form method="POST" novalidate>
-        {% csrf_token %}
-
-        <div class="mb-4">
-          <label for="correo" class="block text-sm font-semibold mb-1">Correo</label>
-          <input
-            type="email"
-            name="correo"
-            id="correo"
-            class="block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="usuario@example.com"
-            required
-          />
-        </div>
-
-        <div class="mb-6">
-          <label for="contraseña" class="block text-sm font-semibold mb-1">Contraseña</label>
-          <input
-            type="password"
-            name="contraseña"
-            id="contraseña"
-            class="block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="Tu contraseña"
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
-        >
-          Iniciar Sesión
-        </button>
-      </form>
-
-      <!-- Link de registro o recuperación, si lo deseas -->
-      <p class="text-center text-sm mt-4">
-        ¿No tienes cuenta?
+    <!-- Enlaces extra (ej. registro, recuperación de contraseña) -->
+    <div class="text-center mt-6">
+      <p class="text-sm text-gray-600">
+        ¿Olvidaste tu contraseña? 
+        <a href="#" class="text-blue-600 hover:underline">Recupérala aquí</a>
+      </p>
+      <p class="text-sm text-gray-600 mt-2">
+        ¿No tienes cuenta? 
         <a href="#" class="text-blue-600 hover:underline">Regístrate</a>
       </p>
     </div>
+
   </div>
+
+  <!-- Animación fadeIn con Tailwind (clase custom) -->
+  <style>
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
 </body>
 </html>
