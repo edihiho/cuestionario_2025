@@ -1,20 +1,85 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Login</title>
+  <meta charset="UTF-8" />
+  <title>Inicio de Sesión</title>
+  <!-- Carga de TailwindCSS desde CDN (versión estable) -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.7/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
 </head>
-<body>
-    <h1>Iniciar Sesión</h1>
-    <form method="POST">
+<body class="bg-gray-100">
+  <div class="flex items-center justify-center h-screen">
+    <!-- Contenedor principal -->
+    <div class="bg-white w-full max-w-sm p-8 rounded-xl shadow-lg">
+      
+      <!-- Logo centrado -->
+      <div class="flex justify-center mb-6">
+        <!-- Ajusta la ruta al logo que tengas en tu carpeta static -->
+        <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-16 w-auto" />
+      </div>
+
+      <!-- Título -->
+      <h1 class="text-2xl font-bold text-center mb-6">
+        Bienvenido
+      </h1>
+
+      <!-- Mensajes de error/éxito (si usas django.contrib.messages) -->
+      {% if messages %}
+        <div class="mb-4">
+          {% for message in messages %}
+            <p class="{% if message.tags == 'error' %}text-red-500{% else %}text-green-600{% endif %} text-sm">
+              {{ message }}
+            </p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- Formulario de inicio de sesión -->
+      <form method="POST" novalidate>
         {% csrf_token %}
-        <label>Correo:</label>
-        <input type="email" name="correo" required><br>
-        <label>Contraseña:</label>
-        <input type="password" name="contraseña" required><br>
-        <button type="submit">Ingresar</button>
-    </form>
-    {% for message in messages %}
-      <p style="color: red">{{ message }}</p>
-    {% endfor %}
+
+        <div class="mb-4">
+          <label for="correo" class="block text-sm font-semibold mb-1">Correo</label>
+          <input
+            type="email"
+            name="correo"
+            id="correo"
+            class="block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="usuario@example.com"
+            required
+          />
+        </div>
+
+        <div class="mb-6">
+          <label for="contraseña" class="block text-sm font-semibold mb-1">Contraseña</label>
+          <input
+            type="password"
+            name="contraseña"
+            id="contraseña"
+            class="block w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Tu contraseña"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+        >
+          Iniciar Sesión
+        </button>
+      </form>
+
+      <!-- Link de registro o recuperación, si lo deseas -->
+      <p class="text-center text-sm mt-4">
+        ¿No tienes cuenta?
+        <a href="#" class="text-blue-600 hover:underline">Regístrate</a>
+      </p>
+    </div>
+  </div>
 </body>
 </html>

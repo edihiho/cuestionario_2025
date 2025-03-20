@@ -17,17 +17,14 @@ def login_view(request):
         password = request.POST.get('contraseña')
 
         try:
-            # Verificamos si el usuario existe en la tabla Usuario:
             usuario = Usuario.objects.get(correo=correo, contraseña=password)
-            # (NOTA: Esto no es seguro en producción: hay que usar un método hasheado o el sistema de Django)
-            
-            # Podrías almacenar en sesión:
             request.session['usuario_id'] = usuario.id
             messages.success(request, f"Bienvenido, {usuario.nombre}")
             return redirect('home')
         except Usuario.DoesNotExist:
             messages.error(request, "Credenciales inválidas.")
             return redirect('login')
+
     return render(request, 'cuestionario/login.html')
 
 def logout_view(request):
