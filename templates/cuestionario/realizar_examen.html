@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Examen</title>
+</head>
+<body>
+    <h1>Examen</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {% for pregunta in preguntas %}
+            <div style="border:1px solid #ddd; margin:10px; padding:10px;">
+                <p><strong>{{ forloop.counter }}. {{ pregunta.pregunta }}</strong></p>
+                {% for opcion in pregunta.opcion_set.all %}
+                    <label>
+                        <input type="radio" name="{{ pregunta.id }}" value="{{ opcion.id }}">
+                        {{ opcion.opcion }}
+                    </label><br>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit">Enviar Examen</button>
+    </form>
+</body>
+</html>

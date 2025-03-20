@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Iniciar Sesión</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Correo:</label>
+        <input type="email" name="correo" required><br>
+        <label>Contraseña:</label>
+        <input type="password" name="contraseña" required><br>
+        <button type="submit">Ingresar</button>
+    </form>
+    {% for message in messages %}
+      <p style="color: red">{{ message }}</p>
+    {% endfor %}
+</body>
+</html>

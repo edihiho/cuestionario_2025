@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>Bienvenido</h1>
+    <p>
+        {% if request.session.usuario_id %}
+            <a href="{% url 'logout' %}">Cerrar Sesión</a> | 
+            <a href="{% url 'realizar_examen' %}">Realizar Examen</a>
+        {% else %}
+            <a href="{% url 'login' %}">Iniciar Sesión</a>
+        {% endif %}
+    </p>
+    {% for message in messages %}
+      <p style="color: green">{{ message }}</p>
+    {% endfor %}
+</body>
+</html>

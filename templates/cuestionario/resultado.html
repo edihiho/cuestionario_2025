@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultado</title>
+</head>
+<body>
+    <h1>Resultado de tu Examen</h1>
+    <p>Fecha: {{ examen.fecha }}</p>
+    <p>Duración (segundos): {{ examen.duracion }}</p>
+    <p>Puntaje: {{ puntaje }} / {{ total_preguntas }}</p>
+
+    <h2>Detalle de Respuestas</h2>
+    <ul>
+        {% for r in respuestas %}
+            <li>
+                <strong>Pregunta:</strong> {{ r.pregunta.pregunta }} <br>
+                <strong>Tu respuesta:</strong> {{ r.opcion.opcion }}<br>
+                <strong>Es Correcta:</strong> {{ r.es_correcta }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}">Regresar al inicio</a>
+</body>
+</html>
