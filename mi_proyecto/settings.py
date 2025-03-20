@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import dj_database_url  # Asegúrate de haberlo instalado
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'cuestionario',
 ]
 
@@ -63,6 +63,14 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Si existe la variable de entorno, usar Postgres
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.parse(
+        DATABASE_URL,
+        conn_max_age=600,  # Mantener conexiones hasta 10 minutos
+    )
 
 AUTH_PASSWORD_VALIDATORS = [
     {
