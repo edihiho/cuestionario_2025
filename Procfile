@@ -1,3 +1,2 @@
-web:
-gunicorn
-mi_proyecto.wsgi
+web: gunicorn --sendfile False app:app
+
